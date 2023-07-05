@@ -54,14 +54,14 @@ public class YourConvertor{
                     try {
                         // check if field has getter
                         Method declaredMethod = field.getDeclaringClass()
-                                .getDeclaredMethod("setText");
-                        declaredMethod.invoke(input, value.substring(1, value.length() - 1));
+                                .getDeclaredMethod("set" + field.getName().substring(0, 1)
+                                        .toUpperCase() + field.getName().substring(1), String.class);
+                        declaredMethod.invoke(o, value.substring(1, value.length() - 1));
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     } catch (NoSuchMethodException e) {
                         field.set(o, value.substring(1, value.length() - 1));
                     }
-                    field.set(o, value.substring(1, value.length() - 1));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
